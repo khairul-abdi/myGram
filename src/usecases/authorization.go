@@ -33,3 +33,15 @@ func GetPhotoById(c *gin.Context, photoId int) (*models.PhotoResponse, error) {
 
 	return &entity, nil
 }
+
+func GetCommentById(c *gin.Context, commentId int) (*models.CommentResponse, error) {
+	whereVariable := "id= ?"
+	comment, err := repositories.FindOneCommentById(whereVariable, commentId)
+	if err != nil {
+		return nil, err
+	}
+
+	entity := comment.ToCommentResponse()
+
+	return &entity, nil
+}

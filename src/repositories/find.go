@@ -1,7 +1,6 @@
 package repositories
 
 import (
-	"fmt"
 	"myGram/packages/database"
 	"myGram/src/models"
 
@@ -39,14 +38,11 @@ func (r *repo) FindAllPhoto(whereVariable string, whereValue interface{}) ([]mod
 
 func (r *repo) FindAllComment(whereVariable string, whereValue interface{}) ([]models.Comment, error) {
 	var ListComment []models.Comment
-	fmt.Println("Masuk FindAllComment")
 	err := r.db.Preload(clause.Associations).Find(&ListComment, whereVariable, whereValue).Error
 	if err != nil {
-		fmt.Println("ERROR FindAllComment => ", err.Error())
 		return nil, err
 	}
 
-	fmt.Println("Selesai FindAllComment")
 	return ListComment, nil
 }
 
@@ -65,6 +61,17 @@ func FindOnePhotoById(whereVariable string, photoId int) (*models.Photo, error) 
 	var entity models.Photo
 	db := database.GetDB()
 	err := db.Debug().First(&entity, "id =?", photoId).Error
+
+	if err != nil {
+		return nil, err
+	}
+	return &entity, nil
+}
+
+func FindOneCommentById(whereVariable string, commentId int) (*models.Comment, error) {
+	var entity models.Comment
+	db := database.GetDB()
+	err := db.Debug().First(&entity, "id =?", commentId).Error
 
 	if err != nil {
 		return nil, err

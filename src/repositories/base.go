@@ -12,6 +12,7 @@ type repo struct {
 
 type Repo interface {
 	InsertOne(data interface{}) error
+	InsertOneComment(data *models.Comment) error
 	FindOne(data interface{}, whereVariable string, whereValue interface{}) error
 
 	FindAllPhoto(whereVariable string, whereValue interface{}) ([]models.Photo, error)
@@ -23,6 +24,7 @@ type Repo interface {
 	DeleteSocialMedia(id int, SocialMedia *models.SocialMedia) error
 
 	FindAllComment(whereVariable string, whereValue interface{}) ([]models.Comment, error)
+	UpdateComment(data *models.Comment) (*models.Comment, error)
 
 	UpdateUser(oldUser, entity *models.User) error
 	DeleteUser(id int, User *models.User) error

@@ -7,7 +7,6 @@ import (
 
 func Validate(err error) (int, string) {
 	errSplit := strings.Split(err.Error(), " ")
-
 	if errSplit[7] == `"idx_users_username"` {
 		return http.StatusBadRequest, "Username Already Used"
 	} else if errSplit[7] == `"idx_users_email"` {

@@ -14,15 +14,17 @@ type uc struct {
 type UC interface {
 	UserRegister(c *gin.Context) (map[string]interface{}, string, int)
 	UserLogin(c *gin.Context) (map[string]interface{}, string, int)
-	UpdateUser(c *gin.Context, userID uint) (map[string]interface{}, string, int)
-	DeleteUser(c *gin.Context, userID int) error
+	UpdateUser(c *gin.Context, userId uint) (map[string]interface{}, string, int)
+	DeleteUser(c *gin.Context, userId int) error
 
 	GetPhotos(c *gin.Context, photoId int) ([]models.PhotoGetResponse, string, int)
 	StorePhotos(c *gin.Context, userId uint) (map[string]interface{}, string, int)
 	UpdatePhotos(c *gin.Context, photoId int) (map[string]interface{}, string, int)
 	DeletePhoto(c *gin.Context, photoId int) error
 
-	GetComments(c *gin.Context, userID int) ([]models.CommentGetResponse, string, int)
+	GetComments(c *gin.Context, userId int) ([]models.CommentGetResponse, string, int)
+	StoreComment(c *gin.Context, userId int) (map[string]interface{}, string, int)
+	UpdateComment(c *gin.Context, commentId int) (map[string]interface{}, string, int)
 
 	GetSocialMedias(c *gin.Context, userId int) ([]models.SocialMediaGetResponse, string, int)
 	StoreSocialMedia(c *gin.Context, userId int) (map[string]interface{}, string, int)

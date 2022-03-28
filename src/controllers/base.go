@@ -22,6 +22,8 @@ type Controllers interface {
 	DeletePhoto(c *gin.Context)
 
 	GetComments(c *gin.Context)
+	StoreComment(c *gin.Context)
+	UpdateComment(c *gin.Context)
 
 	GetSocialMedias(c *gin.Context)
 	StoreSocialMedia(c *gin.Context)

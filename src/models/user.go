@@ -23,6 +23,15 @@ type UserUpdateRequest struct {
 	Email    string `json:"email" valid:"Required; Email"`
 }
 
+func (r CommentRequest) ToComment() Comment {
+	return Comment{
+		Id:      r.Id,
+		UserId:  r.UserId,
+		PhotoId: r.PhotoId,
+		Message: r.Message,
+	}
+}
+
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 
 	u.Password = helpers.HashPass(u.Password)

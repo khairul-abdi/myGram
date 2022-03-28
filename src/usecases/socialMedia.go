@@ -49,6 +49,7 @@ func (u *uc) StoreSocialMedia(c *gin.Context, userId int) (map[string]interface{
 		}
 		return nil, message, http.StatusBadRequest
 	}
+
 	SocialMedia.UserId = uint(userId)
 	err = u.repo.InsertOne(&SocialMedia)
 	if err != nil {
