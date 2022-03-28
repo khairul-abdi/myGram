@@ -18,6 +18,7 @@ type Controllers interface {
 
 	GetPhotos(c *gin.Context)
 	StorePhotos(c *gin.Context)
+	UpdatePhotos(c *gin.Context)
 
 	GetSocialMedias(c *gin.Context)
 	StoreSocialMedia(c *gin.Context)

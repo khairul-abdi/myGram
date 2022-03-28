@@ -8,7 +8,6 @@ import (
 )
 
 func (r *repo) FindOne(data interface{}, whereVariable string, whereValue interface{}) error {
-
 	err := r.db.Debug().Where(whereVariable, whereValue).Take(data).Error
 
 	if err != nil {
@@ -41,6 +40,17 @@ func FindOneSocialMediaById(whereVariable string, socialMediaId int) (*models.So
 	var entity models.SocialMedia
 	db := database.GetDB()
 	err := db.Debug().First(&entity, "id =?", socialMediaId).Error
+
+	if err != nil {
+		return nil, err
+	}
+	return &entity, nil
+}
+
+func FindOnePhotoById(whereVariable string, photoId int) (*models.Photo, error) {
+	var entity models.Photo
+	db := database.GetDB()
+	err := db.Debug().First(&entity, "id =?", photoId).Error
 
 	if err != nil {
 		return nil, err

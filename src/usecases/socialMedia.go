@@ -113,7 +113,7 @@ func (u *uc) UpdateSocialMedia(c *gin.Context, socialmediaIdint int) (map[string
 		"user_id":          OldSocialMedia.UserId,
 		"created_at":       OldSocialMedia.UpdatedAt,
 	}
-	return data, "Success", http.StatusOK
+	return data, "Success update social media", http.StatusOK
 }
 
 func (u *uc) DeleteSocialMedia(c *gin.Context, socialmediaIdint int) error {

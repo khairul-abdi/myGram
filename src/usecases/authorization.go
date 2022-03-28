@@ -20,3 +20,16 @@ func GetSocialMediaById(c *gin.Context, socialMediaId int) (*models.SocialMediaR
 	return &socmed, nil
 
 }
+
+func GetPhotoById(c *gin.Context, photoId int) (*models.PhotoResponse, error) {
+
+	whereVariable := "id= ?"
+	photo, err := repositories.FindOnePhotoById(whereVariable, photoId)
+	if err != nil {
+		return nil, err
+	}
+
+	entity := photo.ToPhotoResponse()
+
+	return &entity, nil
+}

@@ -17,3 +17,11 @@ func (r *repo) UpdateSocialMedia(OldSocialMedia, NewSocialMedia *models.SocialMe
 	}
 	return nil
 }
+
+func (r *repo) UpdatePhoto(OldPhoto, NewPhoto *models.Photo) error {
+	err := r.db.Model(&OldPhoto).Updates(&NewPhoto).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

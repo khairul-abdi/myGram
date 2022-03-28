@@ -67,3 +67,53 @@ func (u *uc) StorePhotos(c *gin.Context, userId uint) (map[string]interface{}, s
 
 	return data, "Success create photo", 200
 }
+
+func (u *uc) UpdatePhotos(c *gin.Context, photoId int) (map[string]interface{}, string, int) {
+	NewPhoto := models.Photo{}
+	OldPhoto := models.Photo{}
+
+	c.ShouldBindJSON(&NewPhoto)
+	// Form Validate
+	valid := validation.Validation{}
+	b, err := valid.Valid(&NewPhoto)
+	if err != nil {
+		return nil, "Internal Server Error", http.StatusInternalServerError
+	}
+
+	if !b {
+		// validation does not pass
+		var message string
+		for i, err := range valid.Errors {
+			if i == 0 {
+				message = err.Message
+			} else {
+				message += ", " + err.Message
+			}
+		}
+		return nil, message, http.StatusBadRequest
+	}
+
+	whereVariable := "id = ?"
+	whereValue := photoId
+
+	err = u.repo.FindOne(&OldPhoto, whereVariable, whereValue)
+	if err != nil {
+		return nil, "Data Not Found", http.StatusBadRequest
+	}
+
+	err = u.repo.UpdatePhoto(&OldPhoto, &NewPhoto)
+	if err != nil {
+		return nil, "Bad Request", http.StatusBadRequest
+	}
+
+	data := map[string]interface{}{
+		"id":         OldPhoto.Id,
+		"title":      OldPhoto.Title,
+		"caption":    OldPhoto.Caption,
+		"photo_url":  OldPhoto.PhotoUrl,
+		"user_id":    OldPhoto.UserId,
+		"updated_at": OldPhoto.UpdatedAt,
+	}
+
+	return data, "Success update photo", http.StatusOK
+}

@@ -22,7 +22,7 @@ func AuthorizeSocialMedia() gin.HandlerFunc {
 
 		// Get userId
 		userData := c.MustGet("userData").(jwt.MapClaims)
-		userID := uint(userData["id"].(float64))
+		userID := int(userData["id"].(float64))
 
 		//Get userId from socmed
 		socMed, err := usecases.GetSocialMediaById(c, socialMediaId)
@@ -31,7 +31,38 @@ func AuthorizeSocialMedia() gin.HandlerFunc {
 			packages.Response(c, message, http.StatusInternalServerError, nil)
 			return
 		}
-		if int(userID) != socMed.UserId {
+
+		if userID != socMed.UserId {
+			message := "Access Forbidden"
+			packages.Response(c, message, http.StatusForbidden, nil)
+			return
+		}
+	}
+}
+
+func AuthorizePhoto() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Get photoId from param
+		photoId, err := strconv.Atoi(c.Param("photoId"))
+		if err != nil {
+			message := "invalid parameter"
+			packages.Response(c, message, http.StatusInternalServerError, nil)
+			return
+		}
+
+		// Get userId
+		userData := c.MustGet("userData").(jwt.MapClaims)
+		userID := int(userData["id"].(float64))
+
+		//Get userId from photo
+		photo, err := usecases.GetPhotoById(c, photoId)
+		if err != nil {
+			message := "social media not found"
+			packages.Response(c, message, http.StatusInternalServerError, nil)
+			return
+		}
+
+		if userID != photo.UserId {
 			message := "Access Forbidden"
 			packages.Response(c, message, http.StatusForbidden, nil)
 			return

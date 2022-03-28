@@ -16,6 +16,7 @@ type Repo interface {
 	FindAll(whereVariable string, whereValue interface{}) ([]models.SocialMedia, error)
 
 	FindAllPhoto(whereVariable string, whereValue interface{}) ([]models.Photo, error)
+	UpdatePhoto(OldPhoto, NewPhoto *models.Photo) error
 
 	UpdateSocialMedia(OldSocialMedia, NewSocialMedia *models.SocialMedia) error
 	DeleteSocialMedia(id int, SocialMedia *models.SocialMedia) error
