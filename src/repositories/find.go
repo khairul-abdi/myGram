@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"fmt"
 	"myGram/packages/database"
 	"myGram/src/models"
 
@@ -17,7 +18,7 @@ func (r *repo) FindOne(data interface{}, whereVariable string, whereValue interf
 	return nil
 }
 
-func (r *repo) FindAll(whereVariable string, whereValue interface{}) ([]models.SocialMedia, error) {
+func (r *repo) FindAllSocialMedia(whereVariable string, whereValue interface{}) ([]models.SocialMedia, error) {
 	var List []models.SocialMedia
 	err := r.db.Preload(clause.Associations).Find(&List, whereVariable, whereValue).Error
 	if err != nil {
@@ -34,6 +35,19 @@ func (r *repo) FindAllPhoto(whereVariable string, whereValue interface{}) ([]mod
 	}
 
 	return List, nil
+}
+
+func (r *repo) FindAllComment(whereVariable string, whereValue interface{}) ([]models.Comment, error) {
+	var ListComment []models.Comment
+	fmt.Println("Masuk FindAllComment")
+	err := r.db.Preload(clause.Associations).Find(&ListComment, whereVariable, whereValue).Error
+	if err != nil {
+		fmt.Println("ERROR FindAllComment => ", err.Error())
+		return nil, err
+	}
+
+	fmt.Println("Selesai FindAllComment")
+	return ListComment, nil
 }
 
 func FindOneSocialMediaById(whereVariable string, socialMediaId int) (*models.SocialMedia, error) {

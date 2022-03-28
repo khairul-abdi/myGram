@@ -43,3 +43,11 @@ func ResponsePhoto(c *gin.Context, message string, code int, data interface{}) {
 		"data":    data,
 	})
 }
+
+func ResponseComment(c *gin.Context, message string, code int, data []models.CommentGetResponse) {
+	c.JSON(code, gin.H{
+		"code":    code,
+		"message": message,
+		"data":    data,
+	})
+}

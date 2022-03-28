@@ -38,5 +38,10 @@ func (routes *route) RouterGroup() http.Handler {
 		photoRouter.DELETE("/:photoId", middlewares.AuthorizePhoto(), routes.ctrl.DeletePhoto)
 	}
 
+	commentRouter := router.Group("/comments")
+	{
+		commentRouter.Use(middlewares.Authentication())
+		commentRouter.GET("/", routes.ctrl.GetComments)
+	}
 	return router
 }

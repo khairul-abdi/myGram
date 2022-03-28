@@ -14,7 +14,7 @@ func (u *uc) GetSocialMedias(c *gin.Context, userId int) ([]models.SocialMediaGe
 
 	whereVariable := "user_id = ?"
 	whereValue := userId
-	res, err := u.repo.FindAll(whereVariable, whereValue)
+	res, err := u.repo.FindAllSocialMedia(whereVariable, whereValue)
 	if err != nil {
 		return nil, "error while get findAll data social_media", http.StatusBadRequest
 	}

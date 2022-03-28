@@ -59,7 +59,7 @@ func (ctrl *ctrl) DeletePhoto(c *gin.Context) {
 		return
 	}
 
-	message := "Your social media has been successfully deleted"
+	message := "Your photo has been successfully deleted"
 	code := http.StatusOK
 
 	packages.Response(c, message, code, nil)

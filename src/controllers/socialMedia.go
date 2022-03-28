@@ -12,9 +12,8 @@ import (
 func (ctrl *ctrl) GetSocialMedias(c *gin.Context) {
 	// Get userId
 	userData := c.MustGet("userData").(jwt.MapClaims)
-	userID := uint(userData["id"].(float64))
-	Idint := int(userID)
-	res, message, code := ctrl.uc.GetSocialMedias(c, Idint)
+	userID := int(userData["id"].(float64))
+	res, message, code := ctrl.uc.GetSocialMedias(c, userID)
 
 	packages.ResponseSocial(c, message, code, res)
 }
