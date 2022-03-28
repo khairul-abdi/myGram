@@ -25,6 +25,7 @@ type Repo interface {
 
 	FindAllComment(whereVariable string, whereValue interface{}) ([]models.Comment, error)
 	UpdateComment(data *models.Comment) (*models.Comment, error)
+	DeleteComment(id int, Comment *models.Comment) error
 
 	UpdateUser(oldUser, entity *models.User) error
 	DeleteUser(id int, User *models.User) error

@@ -117,3 +117,13 @@ func (u *uc) UpdateComment(c *gin.Context, commentId int) (map[string]interface{
 
 	return result, "Success update comment", http.StatusOK
 }
+
+func (u *uc) DeleteComment(c *gin.Context, commentId int) error {
+	comment := models.Comment{}
+	err := u.repo.DeleteComment(commentId, &comment)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

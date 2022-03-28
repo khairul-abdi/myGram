@@ -30,3 +30,12 @@ func (r *repo) DeletePhoto(id int, photo *models.Photo) error {
 
 	return nil
 }
+
+func (r *repo) DeleteComment(id int, Comment *models.Comment) error {
+
+	err := r.db.Delete(&Comment, id).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

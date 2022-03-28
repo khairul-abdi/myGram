@@ -44,7 +44,7 @@ func (routes *route) RouterGroup() http.Handler {
 		commentRouter.GET("/", routes.ctrl.GetComments)
 		commentRouter.POST("/", routes.ctrl.StoreComment)
 		commentRouter.PUT("/:commentId", middlewares.AuthorizeComment(), routes.ctrl.UpdateComment)
-		// commentRouter.DELETE("/:commentId", middlewares.AuthorizeComment(), routes.ctrl.DeleteComment)
+		commentRouter.DELETE("/:commentId", middlewares.AuthorizeComment(), routes.ctrl.DeleteComment)
 	}
 	return router
 }

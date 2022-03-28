@@ -40,3 +40,25 @@ func (ctrl *ctrl) UpdateComment(c *gin.Context) {
 
 	packages.Response(c, message, code, res)
 }
+
+func (ctrl *ctrl) DeleteComment(c *gin.Context) {
+	commentId, err := strconv.Atoi(c.Param("commentId"))
+	if err != nil {
+		message := "Internal Server Error"
+		code := http.StatusInternalServerError
+		packages.Response(c, message, code, nil)
+	}
+
+	err = ctrl.uc.DeleteComment(c, commentId)
+	if err != nil {
+		message := "Internal Server Error"
+		code := http.StatusInternalServerError
+		packages.Response(c, message, code, nil)
+		return
+	}
+
+	message := "Your social media has been successfully deleted"
+	code := http.StatusOK
+
+	packages.Response(c, message, code, nil)
+}
