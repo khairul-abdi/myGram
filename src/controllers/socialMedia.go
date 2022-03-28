@@ -44,14 +44,14 @@ func (ctrl *ctrl) UpdateSocialMedia(c *gin.Context) {
 }
 
 func (ctrl *ctrl) DeleteSocialMedia(c *gin.Context) {
-	socialmediaIdint, err := strconv.Atoi(c.Param("socialmediaId"))
+	socialmediaId, err := strconv.Atoi(c.Param("socialmediaId"))
 	if err != nil {
 		message := "Internal Server Error"
 		code := http.StatusInternalServerError
 		packages.Response(c, message, code, nil)
 	}
 
-	err = ctrl.uc.DeleteSocialMedia(c, socialmediaIdint)
+	err = ctrl.uc.DeleteSocialMedia(c, socialmediaId)
 	if err != nil {
 		message := "Internal Server Error"
 		code := http.StatusInternalServerError

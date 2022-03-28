@@ -117,3 +117,13 @@ func (u *uc) UpdatePhotos(c *gin.Context, photoId int) (map[string]interface{}, 
 
 	return data, "Success update photo", http.StatusOK
 }
+
+func (u *uc) DeletePhoto(c *gin.Context, photoId int) error {
+	Photo := models.Photo{}
+	err := u.repo.DeletePhoto(photoId, &Photo)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

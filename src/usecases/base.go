@@ -20,6 +20,7 @@ type UC interface {
 	GetPhotos(c *gin.Context, photoId int) ([]models.PhotoGetResponse, string, int)
 	StorePhotos(c *gin.Context, userId uint) (map[string]interface{}, string, int)
 	UpdatePhotos(c *gin.Context, photoId int) (map[string]interface{}, string, int)
+	DeletePhoto(c *gin.Context, photoId int) error
 
 	GetSocialMedias(c *gin.Context, userId int) ([]models.SocialMediaGetResponse, string, int)
 	StoreSocialMedia(c *gin.Context, userId int) (map[string]interface{}, string, int)

@@ -21,3 +21,12 @@ func (r *repo) DeleteUser(id int, User *models.User) error {
 
 	return nil
 }
+
+func (r *repo) DeletePhoto(id int, photo *models.Photo) error {
+	err := r.db.Delete(&photo, id).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"myGram/packages"
 	"net/http"
 	"strconv"
@@ -21,7 +20,7 @@ func (ctrl *ctrl) GetPhotos(c *gin.Context) {
 
 }
 
-func (ctrl *ctrl) StorePhotos(c *gin.Context) {
+func (ctrl *ctrl) StorePhoto(c *gin.Context) {
 	// Get userId
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	userID := uint(userData["id"].(float64))
@@ -30,19 +29,38 @@ func (ctrl *ctrl) StorePhotos(c *gin.Context) {
 	packages.Response(c, message, code, data)
 }
 
-func (ctrl *ctrl) UpdatePhotos(c *gin.Context) {
+func (ctrl *ctrl) UpdatePhoto(c *gin.Context) {
 	//Get photoId from param
-	fmt.Println("Masuk UpdatePhotos() ")
-
 	photoIdInt, err := strconv.Atoi(c.Param("photoId"))
 	if err != nil {
 		message := "Internal Server Error"
 		code := http.StatusInternalServerError
 		packages.Response(c, message, code, nil)
 	}
-	fmt.Println("photoIdInt==> ", photoIdInt)
 
 	res, message, code := ctrl.uc.UpdatePhotos(c, photoIdInt)
 
 	packages.Response(c, message, code, res)
+}
+
+func (ctrl *ctrl) DeletePhoto(c *gin.Context) {
+	photoId, err := strconv.Atoi(c.Param("photoId"))
+	if err != nil {
+		message := "Internal Server Error"
+		code := http.StatusInternalServerError
+		packages.Response(c, message, code, nil)
+	}
+
+	err = ctrl.uc.DeletePhoto(c, photoId)
+	if err != nil {
+		message := "Internal Server Error"
+		code := http.StatusInternalServerError
+		packages.Response(c, message, code, nil)
+		return
+	}
+
+	message := "Your social media has been successfully deleted"
+	code := http.StatusOK
+
+	packages.Response(c, message, code, nil)
 }

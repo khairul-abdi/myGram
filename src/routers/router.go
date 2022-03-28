@@ -33,9 +33,9 @@ func (routes *route) RouterGroup() http.Handler {
 	{
 		photoRouter.Use(middlewares.Authentication())
 		photoRouter.GET("/", routes.ctrl.GetPhotos)
-		photoRouter.POST("/", routes.ctrl.StorePhotos)
-		photoRouter.PUT("/:photoId", middlewares.AuthorizePhoto(), routes.ctrl.UpdatePhotos)
-
+		photoRouter.POST("/", routes.ctrl.StorePhoto)
+		photoRouter.PUT("/:photoId", middlewares.AuthorizePhoto(), routes.ctrl.UpdatePhoto)
+		photoRouter.DELETE("/:photoId", middlewares.AuthorizePhoto(), routes.ctrl.DeletePhoto)
 	}
 
 	return router
