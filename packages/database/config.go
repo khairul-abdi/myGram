@@ -1,9 +1,6 @@
 package database
 
 import (
-
-	// _ "github.com/jinzhu/gorm/dialect/postgres"
-
 	"fmt"
 	"log"
 	"myGram/src/models"
@@ -28,7 +25,7 @@ func LoadDB() {
 		log.Fatal("error connecting to database :", err)
 	}
 
-	DB.Debug().AutoMigrate(models.User{}, models.SocialMedia{})
+	DB.Debug().AutoMigrate(models.User{}, models.Photo{}, models.SocialMedia{})
 }
 
 func GetDB() *gorm.DB {

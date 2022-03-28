@@ -20,9 +20,9 @@ func (ctrl *ctrl) UserLogin(c *gin.Context) {
 }
 
 func (ctrl *ctrl) UpdateUser(c *gin.Context) {
-	// Get UserId
-	UserData := c.MustGet("userData").(jwt.MapClaims)
-	userID := uint(UserData["id"].(float64))
+	// Get userId
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := uint(userData["id"].(float64))
 
 	data, message, code := ctrl.uc.UpdateUser(c, userID)
 

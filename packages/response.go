@@ -35,3 +35,11 @@ func ResponseSocial(c *gin.Context, message string, code int, data []models.Soci
 		})
 	}
 }
+
+func ResponsePhoto(c *gin.Context, message string, code int, data interface{}) {
+	c.JSON(code, gin.H{
+		"code":    code,
+		"message": message,
+		"data":    data,
+	})
+}

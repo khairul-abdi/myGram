@@ -20,11 +20,11 @@ func AuthorizeSocialMedia() gin.HandlerFunc {
 			return
 		}
 
-		// Get UserId
-		UserData := c.MustGet("userData").(jwt.MapClaims)
-		userID := uint(UserData["id"].(float64))
+		// Get userId
+		userData := c.MustGet("userData").(jwt.MapClaims)
+		userID := uint(userData["id"].(float64))
 
-		//Get UserId from socmed
+		//Get userId from socmed
 		socMed, err := usecases.GetSocialMediaById(c, socialMediaId)
 		if err != nil {
 			message := "social media not found"

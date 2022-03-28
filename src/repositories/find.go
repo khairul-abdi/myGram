@@ -25,7 +25,16 @@ func (r *repo) FindAll(whereVariable string, whereValue interface{}) ([]models.S
 		return nil, err
 	}
 	return List, nil
+}
 
+func (r *repo) FindAllPhoto(whereVariable string, whereValue interface{}) ([]models.Photo, error) {
+	var List []models.Photo
+	err := r.db.Preload(clause.Associations).Find(&List, whereVariable, whereValue).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return List, nil
 }
 
 func FindOneSocialMediaById(whereVariable string, socialMediaId int) (*models.SocialMedia, error) {

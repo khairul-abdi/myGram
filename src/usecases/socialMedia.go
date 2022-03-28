@@ -9,11 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (u *uc) GetSocialMedias(c *gin.Context, UserId int) ([]models.SocialMediaGetResponse, string, int) {
+func (u *uc) GetSocialMedias(c *gin.Context, userId int) ([]models.SocialMediaGetResponse, string, int) {
 	var cList []models.SocialMediaGetResponse
 
 	whereVariable := "user_id = ?"
-	whereValue := UserId
+	whereValue := userId
 	res, err := u.repo.FindAll(whereVariable, whereValue)
 	if err != nil {
 		return nil, "error while get findAll data social_media", http.StatusBadRequest
@@ -26,7 +26,7 @@ func (u *uc) GetSocialMedias(c *gin.Context, UserId int) ([]models.SocialMediaGe
 	return cList, "Success", http.StatusOK
 }
 
-func (u *uc) StoreSocialMedia(c *gin.Context, UserId int) (map[string]interface{}, string, int) {
+func (u *uc) StoreSocialMedia(c *gin.Context, userId int) (map[string]interface{}, string, int) {
 	SocialMedia := models.SocialMedia{}
 	c.ShouldBindJSON(&SocialMedia)
 
@@ -49,7 +49,7 @@ func (u *uc) StoreSocialMedia(c *gin.Context, UserId int) (map[string]interface{
 		}
 		return nil, message, http.StatusBadRequest
 	}
-	SocialMedia.UserId = uint(UserId)
+	SocialMedia.UserId = uint(userId)
 	err = u.repo.InsertOne(&SocialMedia)
 	if err != nil {
 		code, message := packages.Validate(err)
@@ -64,7 +64,7 @@ func (u *uc) StoreSocialMedia(c *gin.Context, UserId int) (map[string]interface{
 		"created_at":       SocialMedia.CreatedAt,
 	}
 
-	return data, "Success", 200
+	return data, "Success create photo", 200
 }
 
 func (u *uc) UpdateSocialMedia(c *gin.Context, socialmediaIdint int) (map[string]interface{}, string, int) {

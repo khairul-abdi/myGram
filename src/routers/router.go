@@ -29,5 +29,13 @@ func (routes *route) RouterGroup() http.Handler {
 		socialMediaRouter.DELETE("/:socialmediaId", middlewares.AuthorizeSocialMedia(), routes.ctrl.DeleteSocialMedia)
 	}
 
+	photoRouter := router.Group("/photos")
+	{
+		photoRouter.Use(middlewares.Authentication())
+		photoRouter.GET("/", routes.ctrl.GetPhotos)
+		photoRouter.POST("/", routes.ctrl.StorePhotos)
+
+	}
+
 	return router
 }

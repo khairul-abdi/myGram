@@ -10,9 +10,9 @@ import (
 )
 
 func (ctrl *ctrl) GetSocialMedias(c *gin.Context) {
-	// Get UserId
-	UserData := c.MustGet("userData").(jwt.MapClaims)
-	userID := uint(UserData["id"].(float64))
+	// Get userId
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := uint(userData["id"].(float64))
 	Idint := int(userID)
 	res, message, code := ctrl.uc.GetSocialMedias(c, Idint)
 
@@ -21,10 +21,10 @@ func (ctrl *ctrl) GetSocialMedias(c *gin.Context) {
 
 func (ctrl *ctrl) StoreSocialMedia(c *gin.Context) {
 
-	// Get UserId
-	UserData := c.MustGet("userData").(jwt.MapClaims)
-	userID := uint(UserData["id"].(float64))
-	data, message, code := ctrl.uc.StoreSocialMedia(c, int(userID))
+	// Get userId
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := int(userData["id"].(float64))
+	data, message, code := ctrl.uc.StoreSocialMedia(c, userID)
 
 	packages.Response(c, message, code, data)
 }

@@ -29,7 +29,7 @@ type SocialMediaResponse struct {
 	Name           string    `json:"name"`
 	SocialMediaUrl string    `json:"social_media_url"`
 	UserId         int       `json:"user_id"`
-	Created_At     time.Time `gorm:"column:created_at"`
+	CreatedAt      time.Time `gorm:"column:created_at"`
 }
 
 func (r SocialMedia) ToSocialMediaGetResponse() SocialMediaGetResponse {
@@ -50,6 +50,6 @@ func (r SocialMedia) ToSocialMediaResponse() SocialMediaResponse {
 		Name:           r.Name,
 		SocialMediaUrl: r.SocialMediaUrl,
 		UserId:         int(r.UserId),
-		Created_At:     r.CreatedAt,
+		CreatedAt:      r.CreatedAt,
 	}
 }
