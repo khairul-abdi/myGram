@@ -57,7 +57,7 @@ func (ctrl *ctrl) DeleteComment(c *gin.Context) {
 		return
 	}
 
-	message := "Your social media has been successfully deleted"
+	message := "Your comment has been successfully deleted"
 	code := http.StatusOK
 
 	packages.Response(c, message, code, nil)

@@ -58,7 +58,7 @@ func AuthorizePhoto() gin.HandlerFunc {
 		//Get userId from photo
 		photo, err := usecases.GetPhotoById(c, photoId)
 		if err != nil {
-			message := "social media not found"
+			message := "photo not found"
 			packages.Response(c, message, http.StatusInternalServerError, nil)
 			return
 		}
